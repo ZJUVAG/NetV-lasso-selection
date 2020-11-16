@@ -1,0 +1,30 @@
+{
+  "name": "netv-lasso-selection",
+  "version": "1.0.0",
+  "description": "lasso plugin for NetV.js",
+  "main": "dist/netv-lasso-selection.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZJUVAG/NetV-lasso-selection.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ZJUVAG/NetV-lasso-selection/issues"
+  },
+  "homepage": "https://github.com/ZJUVAG/NetV-lasso-selection#readme",
+  "dependencies": {
+    "robust-point-in-polygon": "^1.0.3"
+  },
+  "devDependencies": {
+    "webpack": "^5.4.0",
+    "webpack-cli": "^4.2.0"
+  }
+}
