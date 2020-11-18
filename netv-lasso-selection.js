@@ -29,7 +29,7 @@ export class Lasso {
         this.$_svg.addEventListener('mouseup', this._onMouseUp.bind(this))
 
         // check config to decide enable it or not
-        if (configs?.enable === true) {
+        if (configs && configs.enable === true) {
             this.enable()
         }
     }
