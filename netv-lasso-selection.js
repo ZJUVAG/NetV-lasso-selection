@@ -27,7 +27,7 @@ export class Lasso {
         this.$_svg.addEventListener('mousedown', this._onMouseDown.bind(this))
         this.$_svg.addEventListener('mousemove', this._onMouseMove.bind(this))
         this.$_svg.addEventListener('mouseup', this._onMouseUp.bind(this))
-        
+
         // check config to decide enable it or not
         if (configs?.enable === true) {
             this.enable()
@@ -93,7 +93,7 @@ export class Lasso {
         }
 
         const items = this.$_core.nodes()
-        const dataTransform = this.$_core.$_interactionManager.transform // TODO: maybe need a more elegant way to get transform
+        const dataTransform = this.$_core.transform()
         // TODO: consider on border condition
         this._selectedItems = items.filter(item => {
             const x = item.x() * dataTransform.k + dataTransform.x
