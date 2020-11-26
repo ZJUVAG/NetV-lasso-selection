@@ -34,6 +34,10 @@ export class Lasso {
         }
     }
 
+    dispose() {
+        this.$_svg.remove()
+    }
+
     enable() {
         this.$_svg.style.pointerEvents = 'visible'
     }
