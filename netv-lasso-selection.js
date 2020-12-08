@@ -12,6 +12,7 @@ export class Lasso {
         netv.$_container.style.width = netv.$_configs.width
         netv.$_container.style.height = netv.$_configs.height
         this.$_svg.style.position = 'absolute'
+        this.$_svg.style.zIndex = '20'
         this.$_svg.style.overflow = 'visible'
         this.$_svg.style.pointerEvents = 'none' // initially disabled
 
