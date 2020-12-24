@@ -2,6 +2,8 @@
 
 Lasso plugin for NetV.js(http://netv.zjuvag.org/)
 
+![lasso](./images/lasso.png)
+
 ## API reference
 
 ### `lasso = new Lasso(netv, configs)`
