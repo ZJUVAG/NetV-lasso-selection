@@ -13,6 +13,7 @@ Create lasso handler
 * `netv: NetV`: pass core NetV object
 * `configs: {}`: key-value pair configs
     * `enable: bool`: default enable lasso or not
+    * `multiSelectKey: string`: key pressed when using multi-select, default is 'Shift'
 
 ### `lasso.dispose()`
 
