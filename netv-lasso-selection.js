@@ -5,6 +5,7 @@ export class Lasso {
         this.$_svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
         this.$_core = netv
         netv.$_container.prepend(this.$_svg)
+        this.$_svg.setAttribute('id', 'lasso-svg')
         this.$_svg.setAttribute('width', netv.$_configs.width)
         this.$_svg.setAttribute('height', netv.$_configs.height)
         netv.$_container.style.position = 'relative'
@@ -16,14 +17,23 @@ export class Lasso {
         this.$_svg.style.overflow = 'visible'
         this.$_svg.style.pointerEvents = 'none' // initially disabled
 
+        this._multiSelectKey = (configs && configs.multiSelectKey) || 'Shift'
+        this._multiSelect = false
+
         this._width = netv.$_configs.width
         this._height = netv.$_configs.height
         this._closeDistance = 100
 
+        this._paths = []
         this._pathPoints = []
         this._selectedItems = []
 
         this._selectedCallback = null
+
+        this._keyDownListener = this._onKeyDown.bind(this)
+        this._keyUpListener = this._onKeyUp.bind(this)
+        window.addEventListener('keydown', this._keyDownListener)
+        window.addEventListener('keyup', this._keyUpListener)
 
         this.$_svg.addEventListener('mousedown', this._onMouseDown.bind(this))
         this.$_svg.addEventListener('mousemove', this._onMouseMove.bind(this))
@@ -36,6 +46,8 @@ export class Lasso {
     }
 
     dispose() {
+        window.removeEventListener('keydown', this._keyDownListener)
+        window.removeEventListener('keyup', this._keyUpListener)
         this.$_svg.remove()
     }
 
@@ -83,9 +95,31 @@ export class Lasso {
     }
 
     _onMouseUp(evt) {
-        this._path.remove()
+        this._selecting = false
         this._getSelectedItems()
-        this._selectedCallback && this._selectedCallback(this._selectedItems)
+        if (this._multiSelect) {
+            this._paths.push(this._path)
+        } else {
+            this._path.remove()
+            this._selectedCallback && this._selectedCallback(this._selectedItems)
+            this._selectedItems = []
+        }
+    }
+
+    _onKeyDown(evt) {
+        if (evt.key === this._multiSelectKey) {
+            this._multiSelect = true
+        }
+    }
+
+    _onKeyUp(evt) {
+        if (evt.key === this._multiSelectKey) {
+            this._multiSelect = false
+
+            this._paths.forEach(path => path.remove())
+            this._selectedCallback && this._selectedCallback(this._selectedItems)
+            this._selectedItems = []
+        }
     }
 
     _getSelectedItems() {
@@ -93,17 +127,16 @@ export class Lasso {
         const end = this._pathPoints[this._pathPoints.length - 1]
         const distanceSqare = (start[0] - end[0]) ** 2 + (start[1] - end[1]) ** 2
         if (distanceSqare > this._closeDistance * this._closeDistance) {
-            this._selectedItems = []
             return
         }
 
         const items = this.$_core.nodes()
         const dataTransform = this.$_core.transform()
         // TODO: consider on border condition
-        this._selectedItems = items.filter(item => {
+        this._selectedItems.push(...items.filter(item => {
             const x = item.x() * dataTransform.k + dataTransform.x
             const y = item.y() * dataTransform.k + dataTransform.y
             return (checkPointInPolygon(this._pathPoints, [x, y]) < 0)
-        })
+        }))
     }
 }
