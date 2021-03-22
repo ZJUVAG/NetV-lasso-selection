@@ -13,7 +13,14 @@ Create lasso handler
 * `netv: NetV`: pass core NetV object
 * `configs: {}`: key-value pair configs
     * `enable: bool`: default enable lasso or not
-    * `multiSelectKey: string`: key pressed when using multi-select, default is 'Shift'
+    * `multiSelectKey: string`: key pressed when using multi-select, default is `'Shift'`
+    * `pathStyle: {}`: lasso path style (below is supported attribute and their default value)
+        * `fill`: `rgba(200, 200, 200, 0.2)`,
+        * `stroke`: `black`,
+        * `stroke-width`: `2`,
+        * `stroke-dasharray`: `[]`,
+        * `stroke-linejoin`: `round`,
+        * `stroke-linecap`: `round`
 
 ### `lasso.dispose()`
 

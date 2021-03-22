@@ -17,6 +17,15 @@ export class Lasso {
         this.$_svg.style.overflow = 'visible'
         this.$_svg.style.pointerEvents = 'none' // initially disabled
 
+        this._pathStyle = Object.assign({}, {
+            'fill': 'rgba(200, 200, 200, 0.2)',
+            'stroke': 'black',
+            'stroke-width': 2,
+            'stroke-dasharray': [],
+            'stroke-linejoin': 'round',
+            'stroke-linecap': 'round'
+        }, configs.pathStyle)
+
         this._multiSelectKey = (configs && configs.multiSelectKey) || 'Shift'
         this._multiSelect = false
 
@@ -68,13 +77,15 @@ export class Lasso {
     }
 
     _onMouseDown(evt) {
+        console.log(this._pathStyle)
         this._selecting = true
         this._path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        this._path.setAttribute('fill', 'rgba(200, 200, 200, 0.2)'); // TODO: fill
-        this._path.setAttribute('stroke', 'black');
-        this._path.setAttribute('stroke-width', 2);
-        this._path.setAttribute('stroke-linejoin', 'round');
-        this._path.setAttribute('stroke-linecap', 'round');
+        this._path.setAttribute('fill', this._pathStyle['fill']); // TODO: fill
+        this._path.setAttribute('stroke', this._pathStyle['stroke']);
+        this._path.setAttribute('stroke-width', this._pathStyle['stroke-width']);
+        this._path.setAttribute('stroke-dasharray', this._pathStyle['stroke-dasharray']);
+        this._path.setAttribute('stroke-linejoin', this._pathStyle['stroke-linejoin']);
+        this._path.setAttribute('stroke-linecap', this._pathStyle['stroke-linecap']);
         this.$_svg.appendChild(this._path);
 
         const x = evt.offsetX

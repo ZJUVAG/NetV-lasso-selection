@@ -37,7 +37,13 @@ netv.draw()
 netv.on('pan', () => { })
 netv.on('zoom', () => { })
 
-const lasso = new Lasso(netv, { enable: true, multiSelectKey: 'Shift' })
+const lasso = new Lasso(netv, {
+    enable: true,
+    multiSelectKey: 'Shift',
+    pathStyle: {
+        'stroke-dasharray': [5, 5],
+    }
+})
 lasso.onSelected((selectedItems) => {
     console.log(selectedItems)
 })
