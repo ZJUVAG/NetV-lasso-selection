@@ -77,7 +77,10 @@ export class Lasso {
     }
 
     _onMouseDown(evt) {
-        console.log(this._pathStyle)
+        if (evt.button !== 0) {
+            // must lasso with left button
+            return
+        }
         this._selecting = true
         this._path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         this._path.setAttribute('fill', this._pathStyle['fill']); // TODO: fill
@@ -96,6 +99,10 @@ export class Lasso {
     }
 
     _onMouseMove(evt) {
+        if (evt.button !== 0) {
+            // must lasso with left button
+            return
+        }
         if (!this._selecting) return
         // TODO: need smooth
         const x = evt.offsetX
@@ -106,6 +113,10 @@ export class Lasso {
     }
 
     _onMouseUp(evt) {
+        if (evt.button !== 0) {
+            // must lasso with left button
+            return
+        }
         this._selecting = false
         this._getSelectedItems()
         if (this._multiSelect) {
