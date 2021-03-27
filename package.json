@@ -1,6 +1,6 @@
 {
   "name": "netv-lasso-selection",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "lasso plugin for NetV.js",
   "main": "dist/netv-lasso-selection.js",
   "directories": {
